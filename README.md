@@ -99,12 +99,6 @@ gcc -m32 -no-pie BidimensionalSpace.s -o bi_space
 ./bi_space
 ```
 
-#### 5. Running the Test Suite
-The container also includes `python3`. You can run the test suite directly from the container's prompt:
-```bash
-python3 test.py
-```
-
 ### Method 2: Running on a Local Linux Machine
 
 This method requires you to have `gcc` and its 32-bit multilib libraries installed.
@@ -132,4 +126,44 @@ Run the compiled executable. The program will wait for input from the standard i
 ./uni_space
 # or
 ./bi_space
+```
+
+
+## Comprehensive Test Suite
+
+This project features a robust testing suite designed to ensure the memory allocation and file system operations are implemented correctly and reliably.
+
+The project includes a comprehensive set of automated tests that cover a wide range of scenarios, from basic operations to complex sequences of memory manipulation. This ensures that both the `UnidimensionalSpace.s` and `BidimensionalSpace.s` implementations are fully validated for correctness and stability.
+
+### Key Features of Our Testing Approach:
+
+*   **Scenario-Based Validation**: Tests are organized into scenarios, each simulating a specific sequence of operations. This includes:
+    *   **`add`**: Simple file allocation.
+    *   **`add_get`**: Allocation followed by retrieval.
+    *   **`add_delete`**: Allocation followed by deletion.
+    *   **`add_get_delete`**: A full lifecycle of allocation, retrieval, and deletion.
+    *   **`defragmentation`**: Scenarios that test the memory defragmentation logic.
+
+*   **Automated Execution**: A Python script (`test.py`) automates the entire testing process. It compiles the Assembly code, runs each test case with the corresponding input, and compares the output against the expected results.
+
+*   **Containerized Environment**: The tests are run in a containerized environment using Docker Compose (`compose.yaml`). This guarantees a consistent and reproducible testing environment, eliminating discrepancies between different development setups.
+
+### How to Run the Tests
+
+To run the automated tests, you can either use docker either run the Python scirpt on your own machine. Docker is recommended and there are 2 ways to do so: 
+
+1.  **Start the Test Runner**:
+    Open a terminal in the project's root directory and run the following command:
+    ```bash
+    docker-compose up --build
+    ```
+    This command will build the Docker image, start the container, and automatically execute the `test.py` script, which runs all the test cases for both `UnidimensionalSpace.s` and `BidimensionalSpace.s`.
+
+    The test script will print the results of each test case to the console, indicating whether the test passed or failed. This allows for quick and easy verification of the project's functionality.
+
+    This rigorous testing methodology ensures that the project is not only a functional implementation of memory management concepts but also a reliable and well-engineered piece of software.
+
+2. The container also includes `python3`. You can run the test suite directly from the container's prompt:
+```bash
+python3 test.py
 ```
